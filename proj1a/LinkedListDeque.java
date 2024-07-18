@@ -23,7 +23,7 @@ public class LinkedListDeque<Dudu> {
         }
         public void addFirst(Dudu x) {
             if (sentinel.next == null) {
-                sentinel.next = new IntNode(x,sentinel,null);
+                sentinel.next = new IntNode(x,sentinel,sentinel);
                 sentinel.prev = sentinel.next;
                 size = size + 1;
                 return;
@@ -73,7 +73,14 @@ public class LinkedListDeque<Dudu> {
         public Dudu removeFirst() {
             Dudu result = sentinel.next.item;
             IntNode p = sentinel.next.next;
+            if (p == null) {
+                sentinel.prev = null;
+                sentinel.next = null;
+                return result;
+            }
             sentinel.next = p;
+            p.prev = sentinel;
+            size = size - 1;
             return result;
         }
 
